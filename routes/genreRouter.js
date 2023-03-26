@@ -1,11 +1,12 @@
 import express from 'express'
 import ncs from 'nocopyrightsounds-api'
+import { requestVarify } from '../middleware/auth.js'
 import { isValidGenre, isValidNum } from '../helpers/parameterValidator.js'
 
 export const router = express.Router()
 
 // Genres,
-router.get('/:genre/:pageNum', async (req, res) => {
+router.get('/:genre/:pageNum', requestVarify, async (req, res) => {
     const genre = req.params.genre
     const pageNum = req.params.pageNum
     let selectedGenre

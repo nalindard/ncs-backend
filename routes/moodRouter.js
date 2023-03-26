@@ -1,11 +1,12 @@
 import express from 'express'
 import ncs from 'nocopyrightsounds-api'
+import { requestVarify } from '../middleware/auth.js'
 import { isValidMood, isValidNum } from '../helpers/parameterValidator.js'
 
 export const router = express.Router()
 
 // Moods,
-router.get('/:mood/:pageNum', async (req, res) => {
+router.get('/:mood/:pageNum', requestVarify, async (req, res) => {
     const mood = req.params.mood
     const pageNum = req.params.pageNum
     let selectedMood
