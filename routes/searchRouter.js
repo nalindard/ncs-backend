@@ -2,7 +2,7 @@ import express from 'express'
 import ncs from 'nocopyrightsounds-api'
 export const router = express.Router()
 
-// Default pages,
+// Searches,
 router.get('/:songName', async (req, res) => {
     const songName = req.params.songName
     try {
@@ -12,5 +12,3 @@ router.get('/:songName', async (req, res) => {
         res.status(500).json({ Error: error })
     }
 })
-
-// const songs = await ncs.search({search: ''})

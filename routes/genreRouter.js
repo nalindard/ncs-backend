@@ -10,6 +10,10 @@ router.get('/:genre/:pageNum', async (req, res) => {
     const pageNum = req.params.pageNum
     let selectedGenre
 
+    // If this giant switch statement questionable,
+    // Look at above line in moodRouter.js page
+    // ⚠️⚠️⚠️⚠️
+
     if (isValidGenre(genre) && isValidNum(pageNum)) {
         switch (genre) {
             case 'Bass':
@@ -75,11 +79,8 @@ router.get('/:genre/:pageNum', async (req, res) => {
         try {
             const songs = await ncs.search(
                 {
-                    // genre: ncs.Genre.House,
                     genre: selectedGenre,
                 },
-                // Page number here
-                // 2
                 Number(pageNum)
             )
             res.status(200).send(songs)
@@ -102,22 +103,3 @@ router.get('/:genre/:pageNum', async (req, res) => {
         }
     }
 })
-
-// Bass,
-// Chill,
-// DrumBass,
-// Drumstep,
-// Dubstep,
-// EDM,
-// Electronic,
-// FutureHouse,
-// Hardstyle,
-// House,
-// Indie,
-// MelodicDubstep,
-// Unknown,
-// Trap,
-// GlitchHop,
-// Phonk,
-// FutureBass,
-// BassHouse

@@ -6,7 +6,6 @@ export const router = express.Router()
 // Default pages,
 router.get('/:pageNum', async (req, res) => {
     const pageNum = req.params.pageNum
-    // console.log(`Page number:${pageNum}`, isValidNum(pageNum))
     if (isValidNum(pageNum)) {
         try {
             const songs = await ncs.getSongs(pageNum)
