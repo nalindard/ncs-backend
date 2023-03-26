@@ -1,14 +1,19 @@
 import express from 'express'
 import ncs from 'nocopyrightsounds-api'
+import { requestVarify } from '../middleware/auth.js'
 import { isValidGenre, isValidNum } from '../helpers/parameterValidator.js'
 
 export const router = express.Router()
 
 // Genres,
-router.get('/:genre/:pageNum', async (req, res) => {
+router.get('/:genre/:pageNum', requestVarify, async (req, res) => {
     const genre = req.params.genre
     const pageNum = req.params.pageNum
     let selectedGenre
+
+    // If this giant switch statement questionable,
+    // Look at above line in moodRouter.js page
+    // ⚠️⚠️⚠️⚠️
 
     if (isValidGenre(genre) && isValidNum(pageNum)) {
         switch (genre) {
@@ -75,11 +80,8 @@ router.get('/:genre/:pageNum', async (req, res) => {
         try {
             const songs = await ncs.search(
                 {
-                    // genre: ncs.Genre.House,
                     genre: selectedGenre,
                 },
-                // Page number here
-                // 2
                 Number(pageNum)
             )
             res.status(200).send(songs)
@@ -102,22 +104,3 @@ router.get('/:genre/:pageNum', async (req, res) => {
         }
     }
 })
-
-// Bass,
-// Chill,
-// DrumBass,
-// Drumstep,
-// Dubstep,
-// EDM,
-// Electronic,
-// FutureHouse,
-// Hardstyle,
-// House,
-// Indie,
-// MelodicDubstep,
-// Unknown,
-// Trap,
-// GlitchHop,
-// Phonk,
-// FutureBass,
-// BassHouse

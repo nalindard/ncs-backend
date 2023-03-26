@@ -1,12 +1,13 @@
 import express from 'express'
 import ncs from 'nocopyrightsounds-api'
 import { isValidNum } from '../helpers/parameterValidator.js'
+import { requestVarify } from '../middleware/auth.js'
 export const router = express.Router()
 
+
 // Default pages,
-router.get('/:pageNum', async (req, res) => {
+router.get('/:pageNum', requestVarify, async (req, res) => {
     const pageNum = req.params.pageNum
-    // console.log(`Page number:${pageNum}`, isValidNum(pageNum))
     if (isValidNum(pageNum)) {
         try {
             const songs = await ncs.getSongs(pageNum)

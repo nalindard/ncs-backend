@@ -1,14 +1,34 @@
 import express from 'express'
 import ncs from 'nocopyrightsounds-api'
+import { requestVarify } from '../middleware/auth.js'
 import { isValidMood, isValidNum } from '../helpers/parameterValidator.js'
 
 export const router = express.Router()
 
 // Moods,
-router.get('/:mood/:pageNum', async (req, res) => {
+router.get('/:mood/:pageNum', requestVarify, async (req, res) => {
     const mood = req.params.mood
     const pageNum = req.params.pageNum
     let selectedMood
+
+    // If I wonder any day - ⚠️
+    // I can use small code like this insted of a giant switch statement.
+    // But that's the way it should happen.
+
+    // let n = [
+    //     { name: 'Angry', mood: ncs.Mood.Angry },
+    //     { name: 'Dark', mood: ncs.Mood.Dark },
+    //     { name: 'Dreamy', mood: ncs.Mood.Dreamy },
+    //     { name: 'Epic', mood: ncs.Mood.Epic },
+    // ]
+
+    // Loop: for (let i = 0; i <= n.length; i++) {
+    //     let e = n[i]
+    //     if (e.name === mood) {
+    //         selectedMood = e.mood
+    //         break Loop
+    //     }
+    // }
 
     if (isValidMood(mood) && isValidNum(pageNum)) {
         switch (mood) {
@@ -95,7 +115,6 @@ router.get('/:mood/:pageNum', async (req, res) => {
                 {
                     mood: selectedMood,
                 },
-                // Page number here
                 Number(pageNum)
             )
             res.send(songs)
@@ -118,28 +137,3 @@ router.get('/:mood/:pageNum', async (req, res) => {
         }
     }
 })
-
-// Angry,
-// Dark,
-// Dreamy,
-// Epic,
-// Euphoric,
-// Energetic,
-// Fear,
-// Funny,
-// Glamorous,
-// Gloomy,
-// Happy,
-// Hopeful,
-// LaidBack,
-// Mysterious,
-// Peaceful,
-// Quirky,
-// Relaxing,
-// Restless,
-// Romantic,
-// Sad,
-// Scary,
-// Sexy,
-// Suspense,
-// Weird

@@ -1,9 +1,10 @@
 import express from 'express'
 import ncs from 'nocopyrightsounds-api'
+import { requestVarify } from '../middleware/auth.js'
 export const router = express.Router()
 
-// Default pages,
-router.get('/:songName', async (req, res) => {
+// Searches,
+router.get('/:songName', requestVarify, async (req, res) => {
     const songName = req.params.songName
     try {
         const songs = await ncs.search({ search: songName })
@@ -12,5 +13,3 @@ router.get('/:songName', async (req, res) => {
         res.status(500).json({ Error: error })
     }
 })
-
-// const songs = await ncs.search({search: ''})
