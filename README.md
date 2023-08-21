@@ -1,3 +1,3 @@
 # ncs-backend
 
-Very basic backend for ncs frontend
+Very basic proxy backend for ncs frontend
